@@ -24,17 +24,15 @@ import javax.swing.border.Border;
  */
 public class Interface{
     //dimension para o frame
-    private static final Dimension DIMENSION = new Dimension(1000, 700);
+    private static final Dimension DIMENSION = new Dimension(1100, 700);
     //dimension para o panel
     private static final Dimension DIMENSIONP = new Dimension(50, 50);
     //dimension para a coluna
-    private static final Dimension DIMENSIONC = new Dimension(35, 50);
+    private static final Dimension DIMENSIONC = new Dimension(250, 100);
     //borda
     private static final Border BORDA = BorderFactory.createLineBorder(Color.black);
     //ponto de click inicial
     private Point clickInicial;
-    //numeros para barra
-    private static int i = 2;
     
     Interface(){
        //defininção do frame principal
@@ -47,9 +45,13 @@ public class Interface{
    
         //Crição da barra de Menu
         JMenuBar barraMenu = new JMenuBar();
+        barraMenu.setBorder(BORDA);
+        barraMenu.setBackground(new Color(29, 27, 27));
         
         //Criação do Menu com seus itens
         JMenu arquivo = new JMenu("Arquivo");
+        arquivo.setFont(new Font("Arial", Font.PLAIN, 15));
+        arquivo.setForeground(Color.white);
         JMenuItem novo = new JMenuItem("Novo");
         JMenuItem abrir = new JMenuItem("Abrir");
         JMenuItem fechar = new JMenuItem("Sair");
@@ -60,6 +62,8 @@ public class Interface{
         
         //Criação de outro Menu com seus itens
         JMenu option = new JMenu("Opções");
+        option.setFont(new Font("Arial", Font.PLAIN, 15));
+        option.setForeground(Color.white);
         JMenuItem info = new JMenuItem("Informações sobre o software");
         option.add(info);
         
@@ -77,14 +81,13 @@ public class Interface{
         
         //criação do panel para conter icones e menu
         JPanel panel = new JPanel();
-        panel.setBorder(BORDA);
         panel.setPreferredSize(DIMENSIONP);
         panel.setLayout(new GridLayout(2, 0));
         
         //paineis com icones e suas ações, juntamente com o painel da barra de menu
         JPanel subpanel1 = new JPanel();
-        subpanel1.setBorder(BORDA);
         subpanel1.setLayout(new FlowLayout(FlowLayout.LEFT));
+        subpanel1.setBackground(new Color(95, 89, 89));
         subpanel1.addMouseListener(new MouseAdapter(){
             @Override
             public void mousePressed(MouseEvent e){
@@ -106,11 +109,11 @@ public class Interface{
         });
 
         JLabel sublabel1 = new JLabel();
-        sublabel1.setIcon(new ImageIcon(setImage("icons\\icons8-cancelar-filled-12.png")));
+        sublabel1.setIcon(new ImageIcon(setImage("icons\\icons8-círculo-preenchido-filled-13.png")));
         JLabel sublabel2 = new JLabel();
-        sublabel2.setIcon(new ImageIcon(setImage("icons\\icons8-redimensionar-diagonal-filled-10.png")));
+        sublabel2.setIcon(new ImageIcon(setImage("icons\\icons8-círculo-preenchido-filled-13 (2).png")));
         JLabel sublabel3 = new JLabel();
-        sublabel3.setIcon(new ImageIcon(setImage("icons\\icons8-comprimir-filled-10.png")));
+        sublabel3.setIcon(new ImageIcon(setImage("icons\\icons8-círculo-preenchido-filled-13_1.png")));
         subpanel1.add(sublabel1);
         subpanel1.add(sublabel2);
         subpanel1.add(sublabel3);
@@ -119,6 +122,14 @@ public class Interface{
             public void mouseClicked(MouseEvent e) {
                 System.exit(0);
             }
+            @Override
+            public void mouseEntered(MouseEvent e){
+                sairImg(true, sublabel1);
+            }
+            @Override
+            public void mouseExited(MouseEvent e){
+                sairImg(false, sublabel1);
+            }
 
         });
         sublabel2.addMouseListener(new MouseAdapter(){
@@ -126,15 +137,30 @@ public class Interface{
             public void mouseClicked(MouseEvent e) {
                 frame.setExtendedState(frame.getExtendedState() == frame.MAXIMIZED_BOTH ? frame.NORMAL : frame.MAXIMIZED_BOTH);
             }
+            @Override
+            public void mouseEntered(MouseEvent e){
+                aumentarImg(true, sublabel2);
+            }
+            @Override
+            public void mouseExited(MouseEvent e){
+                aumentarImg(false, sublabel2);
+            }
         });
         sublabel3.addMouseListener(new MouseAdapter(){
             @Override
             public void mouseClicked(MouseEvent e) {
-                frame.setExtendedState(JFrame.ICONIFIED);
+                frame.setExtendedState(frame.ICONIFIED);
+            }
+            @Override
+            public void mouseEntered(MouseEvent e){
+                minimizarImg(true, sublabel3);
+            }
+            @Override
+            public void mouseExited(MouseEvent e){
+                minimizarImg(false, sublabel3);
             }
         });
         JPanel subpanel2 = new JPanel();
-        subpanel2.setBorder(BORDA);
         subpanel2.setLayout(new GridLayout(1, 0));
         subpanel2.add(barraMenu);
         
@@ -142,35 +168,31 @@ public class Interface{
         panel.add(subpanel1);
         panel.add(subpanel2);
         
-        //coluna para numero de linhas
+        //coluna para Arvore de Arquivos
         JPanel coluna = new JPanel();
-        coluna.setBorder(BORDA);
         coluna.setLayout(new BorderLayout());
         coluna.setPreferredSize(DIMENSIONC);
-        JLabel um = new JLabel("1");
-        coluna.add(um, BorderLayout.NORTH);
-        JPanel subpanelnum = new JPanel();
-        subpanelnum.setLayout(new FlowLayout());
-        coluna.add(subpanelnum);
+        coluna.setBackground(new Color(90, 89, 89));
         
         //criação do TextArea 
         JTextArea txtArea = new JTextArea();
         txtArea.setBorder(BORDA);
+        txtArea.setBackground(new Color(29, 27, 27));
+        txtArea.setFont(new Font("font_face", Font.PLAIN, 20));
+        txtArea.setForeground(Color.white);
         txtArea.addKeyListener(new KeyAdapter(){
             public void keyPressed(KeyEvent e){
                 if(e.getKeyCode() == KeyEvent.VK_ENTER){
-                    JTextField numeros = new JTextField(i+"\n");
-                    numeros.setEditable(false);
-                    subpanelnum.add(numeros);
-                    i++;
+                    
                 }
             }
         });
+        JScrollPane scroll = new JScrollPane(txtArea);
         
         //adicionando os componentes ao frame principal
         frame.add(panel, BorderLayout.NORTH);
         frame.add(coluna, BorderLayout.WEST);
-        frame.add(txtArea);
+        frame.add(scroll);
         
         //empacotando 
         frame.pack();
@@ -201,5 +223,26 @@ public class Interface{
             e.printStackTrace();
         }
         return null;
+    }
+    
+    public void sairImg(boolean valor, JLabel sublabel1){
+        if(valor){
+            sublabel1.setIcon(new ImageIcon(setImage("icons\\icons8-círculo-preenchido-filled-13 (1).png")));
+        }else
+            sublabel1.setIcon(new ImageIcon(setImage("icons\\icons8-círculo-preenchido-filled-13.png")));
+    }
+    
+    public void aumentarImg(boolean valor, JLabel sublabel2){
+        if(valor){
+            sublabel2.setIcon(new ImageIcon(setImage("icons\\icons8-círculo-preenchido-filled-13 (3).png")));
+        }else
+            sublabel2.setIcon(new ImageIcon(setImage("icons\\icons8-círculo-preenchido-filled-13 (2).png")));
+    }
+    
+    public void minimizarImg(boolean valor, JLabel sublabel3){
+        if(valor){
+            sublabel3.setIcon(new ImageIcon(setImage("icons\\icons8-círculo-preenchido-filled-13 (5).png")));
+        }else
+            sublabel3.setIcon(new ImageIcon(setImage("icons\\icons8-círculo-preenchido-filled-13_1.png")));
     }
 }
