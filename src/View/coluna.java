@@ -15,14 +15,14 @@ import javax.swing.JPanel;
  *
  * @author Felipe Bueno de Paula
  */
-public class coluna extends JPanel{
+public class Coluna extends JPanel{
     
-    //dimension para a coluna
+    //dimension para a Coluna
     private static final Dimension DIMENSIONC = new Dimension(250, 100);
     
     private final JFrame parent;
     
-    public coluna(final JFrame parent){
+    public Coluna(final JFrame parent){
         this.parent = parent;
         this.init();
     }

@@ -26,14 +26,16 @@ public class Interface extends JFrame{
         this.setLayout(new BorderLayout());
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
    
-        //instanciando objeto topBar
-        topBar tp = new topBar(this);
+        //instanciando objeto TxtArea
+        TxtArea area = new TxtArea(this);
         
-        //instanciando objeto coluna
-        coluna col = new coluna(this);
+        //instanciando objeto Painel
+        Painel tp = new Painel(this, area);
         
-        //instanciando objeto txtArea
-        txtArea area = new txtArea(this);
+        //instanciando objeto Coluna
+        Coluna col = new Coluna(this);
+        
+        
         
         //adicionando os componentes ao frame principal
         this.add(tp, BorderLayout.NORTH);

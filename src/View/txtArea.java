@@ -19,14 +19,14 @@ import javax.swing.border.Border;
  *
  * @author Felipe Bueno de Paula
  */
-public class txtArea extends JTextArea{
+public class TxtArea extends JTextArea{
     
     //definição da borda utilizada
     private static final Border BORDA = BorderFactory.createLineBorder(Color.black);
     
     private final JFrame parent;
     
-    public txtArea(final JFrame parent){
+    public TxtArea(final JFrame parent){
         this.parent = parent;
         this.init();
     }
